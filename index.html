@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-</head>
-<body>
-    <a href="source/html/act2.html">Actividad 2</a>  
-    <a href="source/html/act3.html">Actividad 3</a>   
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <Canvas id="myCanvas" width="1200" height="700"></Canvas>
+        <!-- <img src="source/images/onepiece.jpg" id="source"> -->
+        <script>
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            /* var image = document.getElementById("source"); */
+            
+            ctx.fillStyle = "#fa6445";
+            ctx.fillRect(40, 40, 150, 150);
+
+            ctx.fillStyle = "#4444a3CC";
+            ctx.fillRect(100,100,150,150);
+            
+            ctx.strokeStyle = "#4444a3";
+            ctx.lineWidth = "5";
+
+            ctx.beginPath();
+            ctx.moveTo(300,300);
+            ctx.lineTo(570,300);
+            ctx.lineTo(545,230);
+            ctx.lineTo(300,300);
+            ctx.fill();
+
+            ctx.fillStyle = "#fa6445";
+            ctx.beginPath();
+            ctx.moveTo(570,300);
+            ctx.lineTo(670,400);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(100, 500, 70, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(250, 500, 70, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            ctx.font = "50px Verdana";
+            ctx.fillText("Hello World!", 300, 50);
+            ctx.strokeStyle = "#4444a3";
+            ctx.lineWidth = "1";
+            ctx.strokeText("Hello World!", 305, 55);
+
+            img = new Image();
+            img.src = "source/images/onepiece.jpg";
+            img.onload = function ()
+            {
+                ctx.drawImage(img, 500, 350, 200, 140);
+            }
+        </script>
+    </body>
 </html>
