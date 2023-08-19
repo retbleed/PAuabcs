@@ -16,10 +16,10 @@
             /* var image = document.getElementById("source"); */
             
             ctx.fillStyle = "#fa6445";
-            ctx.fillRect(40, 40, 150, 150);
+            ctx.fillRect(50, 200, 150, 150);
 
             ctx.fillStyle = "#4444a3CC";
-            ctx.fillRect(100,100,150,150);
+            ctx.fillRect(100,240,150,150);
             
             ctx.strokeStyle = "#4444a3";
             ctx.lineWidth = "5";
@@ -59,6 +59,14 @@
 
             ctx.fillStyle = grd;
             ctx.fillRect(300, 100, 150, 100);
+
+
+            const grd2 = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+            grd2.addColorStop(0, "blue");
+            grd2.addColorStop(1, "pink");
+
+            ctx.fillStyle = grd2;
+            ctx.fillRect(10, 10, 150, 100);
 
             img = new Image();
             img.src = "source/images/onepiece.jpg";
