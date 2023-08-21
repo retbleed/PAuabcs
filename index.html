@@ -15,10 +15,15 @@
             var ctx = canvas.getContext("2d");
             /* var image = document.getElementById("source"); */
 
-            canvas.addEventListener("click", (event) => {
+            function random_rgba() {
+                var o = Math.round, r = Math.random, s = 255;
+                return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+            }
+
+            canvas.addEventListener("mouseover", (event) => {
                 ctx.beginPath();
                 ctx.arc(event.x, event.y, 50, 0, 2 * Math.PI);
-                ctx.fillStyle = "#fa6445DD";
+                ctx.fillStyle = random_rgba();
                 ctx.fill();                    
             })
             
