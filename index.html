@@ -13,6 +13,7 @@
         <script>
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
+            var changeFig = true;
             /* var image = document.getElementById("source"); */
 
             function random_rgba() {
@@ -20,11 +21,27 @@
                 return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
             }
 
-            canvas.addEventListener("mouseover", (event) => {
-                ctx.beginPath();
-                ctx.arc(event.x, event.y, 50, 0, 2 * Math.PI);
-                ctx.fillStyle = random_rgba();
-                ctx.fill();                    
+            canvas.addEventListener("mouseout", (event) => {
+                switch(changeFig){
+                    case true:
+                        ctx.beginPath();
+                        ctx.arc(event.x, event.y, 50, 0, 2 * Math.PI);
+                        ctx.fillStyle = random_rgba();
+                        ctx.fill();
+                        changeFig = false;
+                        break;
+                    case false:
+                        ctx.beginPath();
+                        ctx.fillRect(event.x,event.y,100,100);
+                        ctx.fillStyle = random_rgba();
+                        ctx.fill();
+                        changeFig = true;
+                        break;
+                }
+                    
+                  
+
+                  
             })
             
             /* ctx.fillStyle = "#fa6445";
