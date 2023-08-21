@@ -14,8 +14,15 @@
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
             /* var image = document.getElementById("source"); */
+
+            canvas.addEventListener("click", (event) => {
+                ctx.beginPath();
+                ctx.arc(event.x, event.y, 50, 0, 2 * Math.PI);
+                ctx.fillStyle = "#fa6445DD";
+                ctx.fill();                    
+            })
             
-            ctx.fillStyle = "#fa6445";
+            /* ctx.fillStyle = "#fa6445";
             ctx.fillRect(50, 200, 150, 150);
 
             ctx.fillStyle = "#4444a3CC";
@@ -73,7 +80,7 @@
             img.onload = function ()
             {
                 ctx.drawImage(img, 500, 350, 200, 140);
-            }
+            } */
         </script>
     </body>
 </html>
