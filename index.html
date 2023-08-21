@@ -21,7 +21,7 @@
                 return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
             }
 
-            canvas.addEventListener("mouseout", (event) => {
+            canvas.addEventListener("mousemove", (event) => {
                 switch(changeFig){
                     case true:
                         ctx.beginPath();
@@ -32,16 +32,12 @@
                         break;
                     case false:
                         ctx.beginPath();
-                        ctx.fillRect(event.x,event.y,100,100);
+                        ctx.fillRect(event.x-50,event.y-50,100,100);
                         ctx.fillStyle = random_rgba();
                         ctx.fill();
                         changeFig = true;
                         break;
-                }
-                    
-                  
-
-                  
+                } 
             })
             
             /* ctx.fillStyle = "#fa6445";
