@@ -25,8 +25,20 @@
         function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
 
         document.addEventListener("keydown", (e) => {
-            x =+ Math.random() * (1200 - 700);
-            y =+ Math.random() * (1200 - 700);
+            switch(e.keyCode){
+                case 87:
+                    y-=10;
+                    break;
+                case 83:
+                    y+=10;
+                    break;
+                case 68:
+                    x+=10;
+                    break;
+                case 65:
+                    x-=10;
+                    break;
+            }
             repaint();
         })
 
