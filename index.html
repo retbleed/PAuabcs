@@ -1,107 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <Canvas id="myCanvas" width="1200" height="700"></Canvas>
-        <!-- <img src="source/images/onepiece.jpg" id="source"> -->
-        <script>
-            var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
-            var changeFig = true;
-            var pressed = false;
 
-            function random_rgba() {var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</head>
 
-            canvas.addEventListener("mousemove", (event) => {
-                ctx.fillStyle = random_rgba(); 
-                changeFig = !changeFig;
-                if(pressed){
-                    switch(changeFig){
-                            case true:
-                                ctx.beginPath();
-                                ctx.arc(event.x, event.y, 25, 0, 2 * Math.PI);
-                                ctx.fill();
-                                ctx.closePath();
-                                break;
-                            case false:
-                                ctx.beginPath();
-                                ctx.fillRect(event.x-25,event.y-25,50,50);
-                                ctx.fill();
-                                ctx.closePath();
-                                break;
-                    } 
-                }
-            })
-            
-            canvas.addEventListener("mousedown", (event) => {pressed=true})
+<body>
+    <Canvas id="myCanvas" width="1200" height="700"></Canvas>
+    <!-- <img src="source/images/onepiece.jpg" id="source"> -->
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var changeFig = true;
+        var pressed = false;
+        var x = 600, y = 350;
 
-            canvas.addEventListener("mouseup", (event) => {pressed=false})
-            
-            /* ctx.fillStyle = "#fa6445";
-            ctx.fillRect(50, 200, 150, 150);
+        function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
 
-            ctx.fillStyle = "#4444a3CC";
-            ctx.fillRect(100,240,150,150);
-            
-            ctx.strokeStyle = "#4444a3";
-            ctx.lineWidth = "5";
+        document.addEventListener("keydown", (e) => {
+            x =+ Math.random() * (1200 - 700);
+            y =+ Math.random() * (1200 - 700);
+            repaint();
+        })
 
+        function repaint() {
             ctx.beginPath();
-            ctx.moveTo(300,300);
-            ctx.lineTo(570,300);
-            ctx.lineTo(545,230);
-            ctx.lineTo(300,300);
+            ctx.fillStyle = random_rgba();
+            ctx.fillRect(x - 25, y - 25, 50, 50);
             ctx.fill();
+            ctx.closePath();
+        }
 
-            ctx.fillStyle = "#fa6445";
-            ctx.beginPath();
-            ctx.moveTo(570,300);
-            ctx.lineTo(670,400);
-            ctx.fill();
+        /* canvas.addEventListener("mousemove", (event) => {
+            ctx.fillStyle = random_rgba(); 
+            changeFig = !changeFig;
+            if(pressed){
+                switch(changeFig){
+                        case true:
+                            ctx.beginPath();
+                            ctx.arc(event.x, event.y, 25, 0, 2 * Math.PI);
+                            ctx.fill();
+                            ctx.closePath();
+                            break;
+                        case false:
+                            ctx.beginPath();
+                            ctx.fillRect(event.x-25,event.y-25,50,50);
+                            ctx.fill();
+                            ctx.closePath();
+                            break;
+                } 
+            }
+        })
+        
+        canvas.addEventListener("mousedown", (event) => {pressed=true})
+        canvas.addEventListener("mouseup", (event) => {pressed=false}) */
 
-            ctx.beginPath();
-            ctx.arc(100, 500, 70, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.fill();
+        /* ctx.fillStyle = "#fa6445";
+        ctx.fillRect(50, 200, 150, 150);
 
-            ctx.beginPath();
-            ctx.arc(250, 500, 70, 0, 2 * Math.PI);
-            ctx.stroke();
+        ctx.fillStyle = "#4444a3CC";
+        ctx.fillRect(100,240,150,150);
+        
+        ctx.strokeStyle = "#4444a3";
+        ctx.lineWidth = "5";
 
-            ctx.font = "50px Verdana";
-            ctx.fillText("Hello World!", 300, 50);
-            ctx.strokeStyle = "#4444a3";
-            ctx.lineWidth = "1";
-            ctx.strokeText("Hello World!", 305, 55);
+        ctx.beginPath();
+        ctx.moveTo(300,300);
+        ctx.lineTo(570,300);
+        ctx.lineTo(545,230);
+        ctx.lineTo(300,300);
+        ctx.fill();
 
-            const grd = ctx.createLinearGradient(300, 0, 450, 0);
-            grd.addColorStop(0, "red");
-            grd.addColorStop(0.5, "orange");
-            grd.addColorStop(1, "yellow");
+        ctx.fillStyle = "#fa6445";
+        ctx.beginPath();
+        ctx.moveTo(570,300);
+        ctx.lineTo(670,400);
+        ctx.fill();
 
-            ctx.fillStyle = grd;
-            ctx.fillRect(300, 100, 150, 100);
+        ctx.beginPath();
+        ctx.arc(100, 500, 70, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(250, 500, 70, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        ctx.font = "50px Verdana";
+        ctx.fillText("Hello World!", 300, 50);
+        ctx.strokeStyle = "#4444a3";
+        ctx.lineWidth = "1";
+        ctx.strokeText("Hello World!", 305, 55);
+
+        const grd = ctx.createLinearGradient(300, 0, 450, 0);
+        grd.addColorStop(0, "red");
+        grd.addColorStop(0.5, "orange");
+        grd.addColorStop(1, "yellow");
+
+        ctx.fillStyle = grd;
+        ctx.fillRect(300, 100, 150, 100);
 
 
-            const grd2 = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
-            grd2.addColorStop(0, "blue");
-            grd2.addColorStop(1, "pink");
+        const grd2 = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        grd2.addColorStop(0, "blue");
+        grd2.addColorStop(1, "pink");
 
-            ctx.fillStyle = grd2;
-            ctx.fillRect(10, 10, 150, 100);
+        ctx.fillStyle = grd2;
+        ctx.fillRect(10, 10, 150, 100);
 
-            img = new Image();
-            img.src = "source/images/onepiece.jpg";
-            img.onload = function ()
-            {
-                ctx.drawImage(img, 500, 350, 200, 140);
-            } */
-        </script>
-    </body>
+        img = new Image();
+        img.src = "source/images/onepiece.jpg";
+        img.onload = function ()
+        {
+            ctx.drawImage(img, 500, 350, 200, 140);
+        } */
+    </script>
+</body>
+
 </html>
