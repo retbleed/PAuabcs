@@ -43,6 +43,7 @@
         })
 
         function repaint() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.fillStyle = random_rgba();
             ctx.fillRect(x - 25, y - 25, 50, 50);
