@@ -1,6 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var blueColor = "rgb(92,171,219)"
+/* var blueColor = "rgb(92,171,219)"
 var yellowColor = "rgb(218,163,58)"
 var redColor = "rgb(136,43,37)"
 var skinColor = "rgb(225,186,141)"
@@ -95,18 +95,18 @@ ctx.closePath();
 ctx.fillStyle = whiteColor;
 ctx.strokeStyle = whiteColor;
 ctx.beginPath();
-ctx.moveTo(225,664);
-ctx.lineTo(825,664);
-ctx.moveTo(825,664);
-ctx.bezierCurveTo(712,900,312,900,225,664);
+ctx.moveTo(225, 664);
+ctx.lineTo(825, 664);
+ctx.moveTo(825, 664);
+ctx.bezierCurveTo(712, 900, 312, 900, 225, 664);
 ctx.fill();
 ctx.stroke();
 ctx.closePath();
 
 ctx.beginPath();
 ctx.strokeStyle = blackColor;
-ctx.moveTo(293,764);
-ctx.lineTo(747,764);
+ctx.moveTo(293, 764);
+ctx.lineTo(747, 764);
 ctx.stroke();
 ctx.closePath();
 
@@ -114,7 +114,7 @@ ctx.closePath();
 ctx.fillStyle = blackColor
 ctx.strokeStyle = blackColor;
 ctx.beginPath();
-ctx.moveTo(108,504);
+ctx.moveTo(108, 504);
 ctx.lineTo(143, 577)
 ctx.lineTo(144, 481);
 ctx.lineTo(221, 346);
@@ -134,43 +134,82 @@ ctx.lineTo(863, 170);
 ctx.lineTo(724, 163);
 ctx.lineTo(210, 181);
 ctx.lineTo(56, 478);
-ctx.lineTo(108,504);
+ctx.lineTo(108, 504);
 ctx.fill();
 ctx.stroke();
 ctx.closePath();
+ */
 
-/* var changeFig = true;
+
+var changeFig = true;
 var pressed = false;
 var x = 600, y = 350;
+var dir = 0;
 
 function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
+
 
 document.addEventListener("keydown", (e) => {
     switch(e.keyCode){
         case 87:
-            y-=10;
+            dir = e.keyCode;
             break;
         case 83:
-            y+=10;
-            break;
-        case 68:
-            x+=10;
+            dir = e.keyCode;
             break;
         case 65:
-            x-=10;
+            dir = e.keyCode;
+            break;
+        case 68:
+            dir = e.keyCode;
+            break;
+    }
+})
+
+function update(){
+    switch(dir){
+        case 87:
+            y -= 10;
+            if(y < 0){y=974;} 
+            break;
+        case 83:
+            y += 10;
+            if(y > 1024){y=50;} 
+            break;
+        case 65:
+            x -= 10;
+            if(x < 0){x=974;}  
+            break;
+        case 68:
+            x += 10;
+            if(x > 1024){x=50;}
             break;
     }
     repaint();
-})
+    window.requestAnimationFrame(update);
+}
+
 
 function repaint() {
-    ctx.clearRect(0,0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillRect(0,0, canvas.width, canvas.height);
     ctx.beginPath();
-    ctx.fillStyle = random_rgba();
+    ctx.fillStyle = "rgb(255,255,255)";
     ctx.fillRect(x - 25, y - 25, 50, 50);
     ctx.fill();
     ctx.closePath();
-} */
+}
+
+window.requestAnimationFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 17);
+        };
+}());
+window.requestAnimationFrame(update);
+
 
 /* canvas.addEventListener("mousemove", (event) => {
     ctx.fillStyle = random_rgba(); 
