@@ -1,18 +1,96 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-/* var blueColor = "rgb(92,171,219)"
-var yellowColor = "rgb(218,163,58)"
-var redColor = "rgb(136,43,37)"
-var skinColor = "rgb(225,186,141)"
-var pinkColor = "rgb(227,108,115)"
-var whiteColor = "rgb(255,255,255)"
-var blackColor = "rgb(0,0,0)"
 
+var blueColor = "rgb(92,171,219)";
+var yellowColor = "rgb(218,163,58)";
+var redColor = "rgb(136,43,37)";
+var skinColor = "rgb(225,186,141)";
+var pinkColor = "rgb(227,108,115)";
+var whiteColor = "rgb(255,255,255)";
+var blackColor = "rgb(0,0,0)";
 
-ctx.fillStyle = blueColor;
+function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
+
+var colors = [];
+for (var i = 0; i < 255; i++) {
+    colors.push(random_rgba());
+}
+
+ctx.beginPath();
+ctx.fillStyle = blackColor;
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 ctx.fill();
+ctx.closePath();
 
+ctx.fillStyle = whiteColor;
+var numStars = 100;
+
+for (var i = 0; i < numStars; i++) {
+    var x = Math.random() * canvas.width;
+    var y = Math.random() * canvas.height;
+    var radius = Math.random() * 2 + 1;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.closePath();
+}
+
+var centerX = canvas.width / 2;
+var centerY = canvas.height / 2;
+ctx.globalAlpha = 0.2;
+for (var i = 0; i < colors.length * 128; i++) {
+    ctx.beginPath();
+    ctx.strokeStyle = colors[i];
+    ctx.lineWidth = 12;
+    ctx.moveTo(centerX, centerY);
+
+    var numPoints = 250;
+    var angleIncrement = (Math.PI * 2) / numPoints;
+    var sizeFactor = 0.05;
+
+    for (var j = 0; j < numPoints; j++) {
+        var radius = i * 255 + j * 2;
+        var angle = j * angleIncrement;
+        var x = centerX + radius * Math.cos(angle) * sizeFactor;
+        var y = centerY + radius * Math.sin(angle) * sizeFactor;
+        ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+    ctx.closePath();
+}
+ctx.globalAlpha = 1.0;
+
+img = new Image();
+img.src = "source/images/astronaut.png";
+img.onload = function ()
+{
+    ctx.drawImage(img, 332, 332, 360, 360);
+}
+
+
+
+/* ctx.beginPath();
+ctx.fillStyle = yellowColor;
+ctx.ellipse(512, 600, 200, 50, Math.PI / 1.05, 0, 2 * Math.PI);
+ctx.fill();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.fillStyle = blueColor;
+ctx.arc(512, 600, 130, 0, 2 * Math.PI);
+ctx.fill();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.fillStyle = whiteColor;
+ctx.fillRect(0, 765, 1024, 400);
+ctx.fill();
+ctx.closePath(); */
+
+
+
+/* 
 //Parte del sombrero inferior
 ctx.fillStyle = yellowColor;
 ctx.beginPath();
@@ -141,7 +219,7 @@ ctx.closePath();
  */
 
 
-var changeFig = true;
+/* var changeFig = true;
 var pressed = false;
 var x = 600, y = 350;
 var dir = 0;
@@ -208,7 +286,7 @@ window.requestAnimationFrame = (function () {
             window.setTimeout(callback, 17);
         };
 }());
-window.requestAnimationFrame(update);
+window.requestAnimationFrame(update); */
 
 
 /* canvas.addEventListener("mousemove", (event) => {
