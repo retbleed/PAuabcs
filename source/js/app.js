@@ -2,16 +2,17 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 var changeFig = true;
-var pressed = false;
+var isPaused = false;
 var x = 600, y = 350;
 
 var dir = 0;
 var t_x, t_y;
 var w_x = 100, w_y = 70;
 var speed = 5;
+var score = 0;
 let walls = [];
 
-function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
+// function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
 
 class Object {
     constructor(x, y, w, h, c) {
@@ -61,25 +62,27 @@ document.addEventListener("keydown", (e) => {
         case 68:
             dir = e.keyCode;
             break;
+        case 13:
+            isPaused = !isPaused;
+            break;
     }
 })
 
 function update() {
+    if(isPaused){repaint();window.requestAnimationFrame(update);return;}
+
     switch (dir) {
         case 87:
             player.y -= speed;
             if (player.y < 0) { player.y = 974 }
-            //  if(y < 0){y=974;} 
             break;
         case 83:
             player.y += speed;
             if (player.y > 1024) { player.y = 50 }
-            // if(y > 1024){y=50;} 
             break;
         case 65:
             player.x -= speed;
             if (player.x < 0) { player.x = 974 }
-            if(x < 0){x=974;}  
             break;
         case 68:
             player.x += speed;
@@ -93,6 +96,7 @@ function update() {
         target.x = t_x;
         target.y = t_y;
         speed += 1;
+        score += 5;
     }
 
     for (var i = walls.length - 1; i >= 0; i--) {
@@ -127,14 +131,25 @@ function update() {
     window.requestAnimationFrame(update);
 }
 
-
 function repaint() {
     ctx.fillStyle = "rgb(0,0,0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Score: " + score, 50, 50);
+
     player.paint(ctx);
     target.paint(ctx);
     for (var i = walls.length - 1; i >= 0; i--) {
         walls[i].paint(ctx);
+    }
+    
+    if(isPaused){
+        ctx.fillStyle = "rgba(0,0,0,0.7)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        ctx.font = "20px Arial";
+        ctx.fillText("Game Paused", 487, 487);
     }
 }
 
