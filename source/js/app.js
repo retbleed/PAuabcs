@@ -12,18 +12,22 @@ var speed = 5;
 var score = 0;
 let walls = [];
 
-// function random_rgba() { var o = Math.round, r = Math.random, s = 255; return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'; }
+let playerImg = new Image(); playerImg.src = "source/images/luffyEat.jpg";
+let targetImg = new Image(); targetImg.src = "source/images/luffyMeat.png";
+const sound1 = new Audio("source/sound/luffyEatSound.mp3");
 
 class Object {
-    constructor(x, y, w, h, c) {
+    constructor(x, y, w, h, c = null, i = null) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.c = c;
+        this.i = i;
     }
 
     paint(ctx) {
+        if (this.i != null) { return; }
         ctx.fillStyle = this.c;
         ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.strokeRect(this.x, this.y, this.w, this.h);
@@ -41,12 +45,12 @@ class Object {
     }
 }
 
-const player = new Object(487, 487, 50, 50, "white");
-const target = new Object(Math.random() * (974), Math.random() * (974), 40, 40, "orange");
+const player = new Object(487, 487, 50, 50, null, playerImg);
+const target = new Object(Math.random() * (974), Math.random() * (974), 40, 40, null, targetImg);
 
-walls.push(new Object(50, 200, 300, 30, "gray"));
-walls.push(new Object(50, 500, 300, 30, "gray"));
-walls.push(new Object(550, 500, 30, 300, "gray"));
+walls.push(new Object(50, 200, 300, 30, "rgb(221,195,138)"));
+walls.push(new Object(50, 500, 300, 30, "rgb(221,195,138)"));
+walls.push(new Object(550, 500, 30, 300, "rgb(221,195,138)"));
 
 document.addEventListener("keydown", (e) => {
     switch (e.keyCode) {
@@ -65,11 +69,32 @@ document.addEventListener("keydown", (e) => {
         case 13:
             isPaused = !isPaused;
             break;
+        case 82:
+            if (isPaused) {
+                player.x = 487;
+                player.y = 487;
+                speed = 5;
+                score = 0;
+                t_x = Math.random() * (974);
+                t_y = Math.random() * (974);
+                target.x = t_x;
+                target.y = t_y;
+                for (var i = walls.length - 1; i >= 0; i--) {
+                    if (target.itCollides(walls[i])) {
+                        t_x = Math.random() * (974);
+                        t_y = Math.random() * (974);
+                        target.x = t_x;
+                        target.y = t_y;
+                    }
+                }
+                isPaused = false;
+            }
+            break;
     }
 })
 
 function update() {
-    if(isPaused){repaint();window.requestAnimationFrame(update);return;}
+    if (isPaused) { repaint(); window.requestAnimationFrame(update); return; }
 
     switch (dir) {
         case 87:
@@ -97,6 +122,7 @@ function update() {
         target.y = t_y;
         speed += 1;
         score += 5;
+        playSound(sound1);
     }
 
     for (var i = walls.length - 1; i >= 0; i--) {
@@ -132,25 +158,35 @@ function update() {
 }
 
 function repaint() {
-    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillStyle = "rgb(235,186,120)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 50, 50);
 
     player.paint(ctx);
+    ctx.drawImage(player.i, player.x, player.y, player.w, player.h);
     target.paint(ctx);
+    ctx.drawImage(target.i, target.x, target.y, target.w * 2, target.h * 2);
+
     for (var i = walls.length - 1; i >= 0; i--) {
         walls[i].paint(ctx);
     }
-    
-    if(isPaused){
+
+    if (isPaused) {
         ctx.fillStyle = "rgba(0,0,0,0.7)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "white";
         ctx.font = "20px Arial";
         ctx.fillText("Game Paused", 487, 487);
     }
+}
+
+function playSound(sound) {
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
 }
 
 window.requestAnimationFrame = (function () {
