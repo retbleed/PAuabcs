@@ -12,31 +12,29 @@
 <body class="bg-black flex justify-center items-center h-screen">
     <div id="app">
         <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex flex-col items-center space-y-4">
-            <div class="text-xl font-medium text-black">Calculator</div>
-            <input type="text" v-model="numberA" placeholder="Enter the first number"
-                class="w-[20rem] p-2 rounded bg-gray-100 focus:outline-none focus:ring focus:border-blue-300">
-            <input type="text" v-model="numberB" placeholder="Enter the second number"
-                class="w-[20rem] p-2 rounded bg-gray-100 focus:outline-none focus:ring focus:border-blue-300">
-
-            <button @click="sum"
-                class="w-48 h-12 rounded-2xl bg-orange-500 text-lg font-bold text-white group relative overflow-hidden transition-all duration-300 hover:bg-black focus:outline-none focus:ring focus:border-blue-300">
-                Calculate
-                <div
-                    class="absolute inset-0 h-full w-full rounded-2xl scale-0 transition-transform group-hover:scale-100 group-hover:bg-white/30">
-                </div>
+            <h2 class="text-2xl font-semibold mb-4">Guardar Información</h2>
+        
+            <ul class="list-disc pl-4">
+                <li v-for="item in person" class="text-gray-800">
+                    {{ item.name }} {{ item.lastName }}
+                </li>
+            </ul>
+        
+            <fieldset class="mb-4">
+                <legend class="text-lg font-semibold">Nombre(s)</legend>
+                <input type="text" v-model="nameData" placeholder="Nombre(s)" class="w-full p-2 border rounded">
+            </fieldset>
+        
+            <fieldset class="mb-4">
+                <legend class="text-lg font-semibold">Apellido(s)</legend>
+                <input type="text" v-model="lastNameData" placeholder="Apellido(s)" class="w-full p-2 border rounded">
+            </fieldset>
+        
+            <button v-on:click="saveData()" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                Guardar Datos
             </button>
-
-            <button @click="clear"
-                class="w-48 h-12 rounded-2xl bg-red-500 text-lg font-bold text-white group relative overflow-hidden transition-all duration-300 hover:bg-black focus:outline-none focus:ring focus:border-blue-300">
-                Clear
-                <div
-                    class="absolute inset-0 h-full w-full rounded-2xl scale-0 transition-transform group-hover:scale-100 group-hover:bg-white/30">
-                </div>
-            </button>
-            <h1 class="text-xl font-bold">Result: {{ result }}</h1>
-
         </div>
-        <p class="text-slate-500">made by RETBLEED</p>
+        
     </div>
 
     <script>
@@ -45,20 +43,28 @@
         createApp({
             data() {
                 return {
-                    numberA: '',
-                    numberB: '',
-                    result: '',
+                    nameData: '',
+                    lastNameData: '',
+                    person: []
                 }
             },
             methods: {
-                sum() {
-                    this.result = isNaN(parseFloat(this.numberA)) || isNaN(parseFloat(this.numberB)) ? 'Error' : parseFloat(this.numberA) + parseFloat(this.numberB);
-                },
-                clear(){
-                    this.numberA = ''; this.numberB = ''; this.result = '';
+                saveData() {
+                    const person = {
+                        name: this.nameData,
+                        lastName: this.lastNameData
+                    }
+
+                    this.person.push(person);
+
+                    this.nameData = "";
+                    this.lastNameData = "";
                 }
+
             }
         }).mount('#app')
+
+
     </script>
 </body>
 
