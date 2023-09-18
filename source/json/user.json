@@ -1,0 +1,10 @@
+[
+    {
+        "name":"Alexander",
+        "lastName":"Higuera",
+        "email": "alex@mail.com",
+        "password": "123",
+        "role_id": "1",
+        "avatar": "avatar1.jpg"
+    }
+]
